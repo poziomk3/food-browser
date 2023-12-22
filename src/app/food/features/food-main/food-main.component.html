@@ -1,7 +1,13 @@
-<div class="sticky top-0 w-full z-10 font-extrabold">
-    <mat-toolbar color="primary"  >
-      <mat-toolbar-row>
-        <span>Food browser</span>
-      </mat-toolbar-row></mat-toolbar>
-  </div>
+<div class="sticky top-0 w-full z-10 ">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+
+      <span class="font-extrabold mr-2 text-xl italic">FoodBrowser</span>
+
+      <button mat-button [class.active]="activePage=='ingredients'"
+        [disabled]="activePage=='ingredients'">Ingredients</button>
+      <button mat-button [class.active]="activePage=='dishes'"
+        [disabled]="activePage=='dishes'">Dishes</button>
+    </mat-toolbar-row></mat-toolbar>
+</div>
 <router-outlet></router-outlet>
