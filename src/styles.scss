@@ -33,8 +33,14 @@ $food-app-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($food-app-theme);
 
-/* You can add global styles to this file, and also import other style files */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lumanosimo&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Permanent+Marker&family=Raleway:wght@400;500;700&family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Varela+Round&display=swap');
+
 html { height: 100%; }
+body{
+  font-family: 'Open Sans', sans-serif;
+}
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

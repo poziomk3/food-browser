@@ -1,2 +1,32 @@
-<p>ingredients-list works!</p>
-{{ allIngredients | async |json}}
+<div class="sticky top-0 w-full z-10 font-extrabold">
+  <mat-toolbar color="primary"  >
+    <mat-toolbar-row>
+      <span>Food browser</span>
+    </mat-toolbar-row></mat-toolbar>
+</div>
+
+<div
+  class="relative  grid xl:grid-cols-5 sm:grid-cols-2   gap-5 p-[1rem] max-w-[1200px]  mx-auto">
+  @for (ingredient of allIngredients|async; track ingredient.idIngredient) {
+  <mat-card color="primary">
+    <div class="font-extrabold mb-[1.5rem] text-md ">
+      <mat-card-header>
+        <mat-card-title>{{ ingredient.strIngredient
+          }}</mat-card-title>
+      </mat-card-header>
+    </div>
+    <mat-card-content>
+
+      <img
+        src="https://www.themealdb.com/images/ingredients/{{ingredient.strIngredient}}.png"
+        alt="ingredient picture" mat-card-image />
+    </mat-card-content>
+    <div class="mt-auto">
+      <mat-card-actions>
+        <button mat-raised-button color="primary">Details</button>
+      </mat-card-actions>
+    </div></mat-card>
+  } @empty {
+
+  }
+</div>

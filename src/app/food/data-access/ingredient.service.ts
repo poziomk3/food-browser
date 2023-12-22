@@ -5,6 +5,7 @@ export interface Product{
   idIngredient:number;
   strIngredient:string;
   strDescription:string|null;
+  strType:string|null;
 }
 export interface IngredientsDTO{
 meals:Array<Product>
@@ -21,6 +22,9 @@ export class IngredientService {
 
   getAllIngredients(): Observable<Array<Product>> {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
-    return this.http.get<IngredientsDTO>(url).pipe( map((data) => data.meals));
+    return this.http.get<IngredientsDTO>(url).pipe( map((data) => data.meals.slice(0, 60)));
   }
+
+ 
+
 }
