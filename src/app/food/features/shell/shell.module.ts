@@ -1,16 +1,22 @@
 import { NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
+import { FoodMainComponent } from '../food-main/food-main.component';
 
 const router: Routes = [
   {
-
-    path: 'ingredients',
-    loadComponent: () =>
-      import('../ingredients-list/ingredients-list.component').then(
-        (m) => m.IngredientsListComponent
-      ),
+    path: '',
+    component: FoodMainComponent,
+    children: [
+      {
+        path: 'ingredients',
+        loadComponent: () =>
+          import('../ingredients-list/ingredients-list.component').then(
+            (m) => m.IngredientsListComponent
+          ),
+      },
+      { path: '**', redirectTo: 'ingredients' },
+    ],
   },
-  { path: '**', redirectTo: 'ingredients' },
 ];
 
 @NgModule({
