@@ -1,4 +1,4 @@
-import { Component, DoCheck,  OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../shared/material/material.service';
 
@@ -15,6 +15,7 @@ export class FoodMainComponent implements DoCheck, OnInit {
 
   activateRoute() {
     this.activePage = this.router.url.split('/')[2];
+    if (this.router.url.split('/').length != 3) this.activePage = null;
   }
   ngOnInit(): void {
     this.activateRoute();

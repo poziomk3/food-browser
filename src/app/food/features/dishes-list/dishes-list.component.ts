@@ -8,11 +8,12 @@ import { PageEvent } from '@angular/material/paginator';
 import { MaterialModule } from '../../../shared/material/material.service';
 import { AsyncPipe } from '@angular/common';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dishes-list',
   standalone: true,
-  imports: [AsyncPipe,  MaterialModule, FoodCardComponent],
+  imports: [AsyncPipe,  MaterialModule, FoodCardComponent,RouterModule],
   templateUrl: './dishes-list.component.html',
   styleUrl: './dishes-list.component.scss',
 })

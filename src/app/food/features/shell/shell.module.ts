@@ -21,7 +21,14 @@ const router: Routes = [
             (m) => m.DishesListComponent
           ),
       },
-      { path: '**', redirectTo: 'ingredients' },
+      {
+        path: 'dishes/:id/details',
+        loadComponent: () =>
+          import('../dish-details/dish-details.component').then(
+            (m) => m.DishDetailsComponent
+          ),
+      },
+      { path: '**', redirectTo: 'ingredients',pathMatch: 'full'},
     ],
   },
 ];
