@@ -1,15 +1,19 @@
-<div class="sticky top-0 w-full z-10">
-  <mat-toolbar color="primary">
-    <mat-toolbar-row (click)="activateRoute()">
-      <span class="font-extrabold mr-2 text-xl italic">FoodBrowser</span>
+<div class="flex flex-col justify-stretch items-stretch  min-h-screen">
+  <div class="sticky top-0 w-full z-10">
+    <mat-toolbar color="primary">
+      <mat-toolbar-row (click)="activateRoute()">
+        <span class="font-extrabold mr-2 text-xl italic">FoodBrowser</span>
 
-      <button mat-button [class.active]="activePage==='ingredients'"
-        [disabled]="activePage==='ingredients'"
-        routerLink="/food/ingredients">Ingredients</button>
-      <button mat-button [class.active]="activePage==='dishes'"
-        [disabled]="activePage==='dishes'"
-        routerLink="/food/dishes">Dishes</button>
-    </mat-toolbar-row>
-  </mat-toolbar>
+        <button mat-button [class.active]="activePage==='ingredients'"
+          [disabled]="activePage==='ingredients'"
+          routerLink="/food/ingredients">Ingredients</button>
+        <button mat-button [class.active]="activePage==='dishes'"
+          [disabled]="activePage==='dishes'"
+          routerLink="/food/dishes">Dishes</button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+  <div class="h-full  w-screen flex-grow">
+    <router-outlet class="flex-grow-0" ></router-outlet>
+  </div>
 </div>
-<router-outlet></router-outlet>

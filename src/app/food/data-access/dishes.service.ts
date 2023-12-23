@@ -9,6 +9,10 @@ export interface MealNoDetails {
   idMeal: string;
 }
 export interface MealWithDetails extends MealNoDetails {
+  strArea:string;
+  strCategory:string;
+  strSource:string;
+  strTags:string;
   strInstructions: string;
   strYoutube: string;
   strIngredient1: string;
