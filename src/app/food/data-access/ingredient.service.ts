@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, combineLatest, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map,  tap } from 'rxjs/operators';
+import { DatapaginationService } from './datapagination.service';
 export interface Product {
   idIngredient: number;
   strIngredient: string;
@@ -16,46 +17,43 @@ export interface IngredientsDTO {
   providedIn: 'root',
 })
 export class IngredientService {
-  constructor(private http: HttpClient) {}
-  ingredientsPersisted$: BehaviorSubject<Array<Product>> = new BehaviorSubject<
+  private paginator: DatapaginationService;
+  constructor(private http: HttpClient) {
+    this.paginator = new DatapaginationService()
+  }
+
+  persistedData$: BehaviorSubject<Array<Product>> = new BehaviorSubject<
     Array<Product>
   >([]);
 
-  itemsPerPages$: BehaviorSubject<number> = new BehaviorSubject<number>(20);
-
-  getAllIngredients(): void {
+  
+  fetchAPI(): void {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
     this.http
       .get<IngredientsDTO>(url)
       .pipe(
         map((data) => data.meals),
         tap((ingredients) => {
-          this.ingredientsPersisted$.next(ingredients);
+          this.persistedData$.next(ingredients);
         })
       )
       .subscribe();
   }
 
-  getPageOfIngredients(page$: Observable<number>): Observable<Array<Product>> {
-    if (this.ingredientsPersisted$.value.length === 0) this.getAllIngredients();
-    return combineLatest([this.ingredientsPersisted$, page$]).pipe(
-      switchMap(([ingredients, page]) => {
-        const startIndex = page * this.itemsPerPages$.value;
-        const endIndex = startIndex + this.itemsPerPages$.value;
-        return of(ingredients.slice(startIndex, endIndex));
-      })
-    );
+  getPage(page$: Observable<number>): Observable<Array<Product>> {
+    if (this.persistedData$.value.length === 0) this.fetchAPI();
+    return this.paginator.getPage(page$, this.persistedData$);
   }
 
-  getIngredientsLength(): Observable<number> {
-    if (this.ingredientsPersisted$.value.length === 0) this.getAllIngredients();
-    return this.ingredientsPersisted$.pipe(
-      map((ingredients) => ingredients.length)
-    );
+  getFullLength(): Observable<number> {
+    if (this.persistedData$.value.length === 0) this.fetchAPI();
+    return this.persistedData$.pipe(map((ingredients) => ingredients.length));
   }
 
-  setNumberOfIngredientsOnPage(numberOfIngs: number): void {
-    this.itemsPerPages$.next(numberOfIngs);
-   
+  setNumberOnPage(arg: number): void {
+    this.paginator.setNumberOnPage(arg);
+  }
+  getNumberOnPage(): BehaviorSubject<number> {
+    return this.paginator.getNumberOnPage();
   }
 }

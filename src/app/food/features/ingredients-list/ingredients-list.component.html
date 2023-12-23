@@ -3,28 +3,9 @@
 <div
   class="relative  grid xl:grid-cols-5 sm:grid-cols-2   gap-5 p-[1rem] max-w-[1200px]  mx-auto">
   @for (ingredient of allIngredients|async; track ingredient.idIngredient) {
-  <mat-card color="primary">
-    <div class="font-extrabold mb-[1.5rem] text-md ">
-      <mat-card-header>
-        <mat-card-title>{{ ingredient.strIngredient
-          }}</mat-card-title>
-      </mat-card-header>
-    </div>
-    <mat-card-content>
-
-      <img (load)="placeHolder.style.display='none'"
-        src="https://www.themealdb.com/images/ingredients/{{ingredient.strIngredient}}.png"
-        alt="ingredient picture" mat-card-image />
-      <div class="w-full aspect-square  flex justify-center items-center "
-        #placeHolder>
-        <mat-spinner></mat-spinner>
-      </div>
-    </mat-card-content>
-    <div class="mt-auto">
-      <mat-card-actions>
-        <button mat-raised-button color="primary">Details</button>
-      </mat-card-actions>
-    </div></mat-card>
+  <app-food-card [title]="ingredient.strIngredient"
+    [imgSrc]="'https://www.themealdb.com/images/ingredients/'+ingredient.strIngredient+'.png'">
+    <button mat-raised-button color="primary">Details</button></app-food-card>
 
   } @empty {
 
