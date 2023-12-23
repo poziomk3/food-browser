@@ -23,7 +23,7 @@ export class DishesService {
   persistedData$: BehaviorSubject<Array<MealNoDetails>> = new BehaviorSubject<
     Array<MealNoDetails>
   >([]);
-
+  // https://www.themealdb.com/api/json/v1/1/search.php?s= albo https://www.themealdb.com/api/json/v1/1/filter.php?i=
   fetchAPI(): void {
     const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
     this.http

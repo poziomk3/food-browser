@@ -1,1 +1,24 @@
-<p>dishes-list works!</p>
+
+<div
+    class="relative  grid xl:grid-cols-3 md:grid-cols-2   gap-5 p-[1rem] max-w-[1200px]  mx-auto">
+    @for (dish of allDishes$|async; track dish.idMeal) {
+    <app-food-card [title]="dish.strMeal"
+        [imgSrc]="dish.strMealThumb">
+        <button mat-raised-button
+            color="primary">Details</button></app-food-card>
+
+    } @empty {
+
+    }
+
+</div>
+<div class="flex  justify-center items-end">
+    <mat-paginator #paginator
+        (page)="handlePageEvent($event)"
+        [length]="allIngredientsLength$|async"
+        [showFirstLastButtons]="true"
+        [pageSize]="itemsOnPage$|async"
+        [pageIndex]="currentPage$|async"
+        [pageSizeOptions]="pageSizeOptions">
+    </mat-paginator>
+</div>

@@ -1,21 +1,25 @@
-<mat-card color="primary">
-    <div class="font-extrabold mb-[1.5rem] text-md ">
-        <mat-card-header>
-            <mat-card-title>{{ title}}</mat-card-title>
-        </mat-card-header>
-    </div>
-    <mat-card-content>
-
-        <img (load)="placeHolder.style.display='none'"
-            [src]="imgSrc"
-            alt="ingredient picture" mat-card-image />
-        <div class="w-full aspect-square  flex justify-center items-center "
-            #placeHolder>
-            <mat-spinner></mat-spinner>
+<div class=" bg-red-200">
+    <mat-card color="primary">
+        <div class="font-extrabold mb-[1.5rem] text-md h-[4rem] ">
+            <mat-card-header>
+                <mat-card-title>{{ title}}</mat-card-title>
+            </mat-card-header>
         </div>
-    </mat-card-content>
-    <div class="mt-auto">
+        <mat-card-content>
+
+            <img class (load)="placeHolder.style.display='none'"
+                [src]="imgSrc"
+                alt />
+            <div
+                class="w-[100%] aspect-square   flex justify-center items-center h-full "
+                #placeHolder>
+                <mat-spinner></mat-spinner>
+            </div>
+
+        </mat-card-content>
+
         <mat-card-actions>
             <ng-content></ng-content>
         </mat-card-actions>
-    </div></mat-card>
+    </mat-card>
+</div>

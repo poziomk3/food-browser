@@ -4,7 +4,7 @@ import {
   IngredientService,
   Product,
 } from '../../data-access/ingredient.service';
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MaterialModule } from '../../../shared/material/material.service';
 import { PageEvent } from '@angular/material/paginator';
 import { FoodCardComponent } from "../../ui/food-card/food-card.component";
@@ -14,7 +14,7 @@ import { FoodCardComponent } from "../../ui/food-card/food-card.component";
     templateUrl: './ingredients-list.component.html',
     styleUrl: './ingredients-list.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [AsyncPipe, JsonPipe, MaterialModule, FoodCardComponent]
+    imports: [AsyncPipe,  MaterialModule, FoodCardComponent]
 })
 export class IngredientsListComponent implements OnInit {
 
