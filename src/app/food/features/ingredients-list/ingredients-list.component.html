@@ -1,5 +1,5 @@
 
-
+<button mat-button (click)="nextPage()"> button</button>{{numberOfPages$|async}}{{currentPage$|async}}
 <div
   class="relative  grid xl:grid-cols-5 sm:grid-cols-2   gap-5 p-[1rem] max-w-[1200px]  mx-auto">
   @for (ingredient of allIngredients|async; track ingredient.idIngredient) {
@@ -12,9 +12,13 @@
     </div>
     <mat-card-content>
 
-      <img
+      <img (load)="placeHolder.style.display='none'"
         src="https://www.themealdb.com/images/ingredients/{{ingredient.strIngredient}}.png"
         alt="ingredient picture" mat-card-image />
+      <div class="w-full aspect-square  flex justify-center items-center "
+        #placeHolder>
+        <mat-spinner></mat-spinner>
+      </div>
     </mat-card-content>
     <div class="mt-auto">
       <mat-card-actions>
