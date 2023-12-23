@@ -21,8 +21,7 @@ export class IngredientService {
     Array<Product>
   >([]);
 
-  itemsPerPages$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
-  numberOfPages$: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  itemsPerPages$: BehaviorSubject<number> = new BehaviorSubject<number>(20);
 
   getAllIngredients(): void {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
@@ -32,9 +31,6 @@ export class IngredientService {
         map((data) => data.meals),
         tap((ingredients) => {
           this.ingredientsPersisted$.next(ingredients);
-          this.numberOfPages$.next(
-            Math.ceil(ingredients.length / this.itemsPerPages$.value)
-          );
         })
       )
       .subscribe();
@@ -44,19 +40,22 @@ export class IngredientService {
     if (this.ingredientsPersisted$.value.length === 0) this.getAllIngredients();
     return combineLatest([this.ingredientsPersisted$, page$]).pipe(
       switchMap(([ingredients, page]) => {
-        const startIndex = (page - 1) * this.itemsPerPages$.value;
+        const startIndex = page * this.itemsPerPages$.value;
         const endIndex = startIndex + this.itemsPerPages$.value;
         return of(ingredients.slice(startIndex, endIndex));
       })
     );
   }
 
+  getIngredientsLength(): Observable<number> {
+    if (this.ingredientsPersisted$.value.length === 0) this.getAllIngredients();
+    return this.ingredientsPersisted$.pipe(
+      map((ingredients) => ingredients.length)
+    );
+  }
+
   setNumberOfIngredientsOnPage(numberOfIngs: number): void {
     this.itemsPerPages$.next(numberOfIngs);
-    this.numberOfPages$.next(
-      Math.ceil(
-        this.ingredientsPersisted$.value.length / this.itemsPerPages$.value
-      )
-    );
+   
   }
 }

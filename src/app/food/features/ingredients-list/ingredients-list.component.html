@@ -1,5 +1,5 @@
 
-<button mat-button (click)="nextPage()"> button</button>{{numberOfPages$|async}}{{currentPage$|async}}
+
 <div
   class="relative  grid xl:grid-cols-5 sm:grid-cols-2   gap-5 p-[1rem] max-w-[1200px]  mx-auto">
   @for (ingredient of allIngredients|async; track ingredient.idIngredient) {
@@ -25,7 +25,19 @@
         <button mat-raised-button color="primary">Details</button>
       </mat-card-actions>
     </div></mat-card>
+
   } @empty {
 
   }
+
+</div>
+<div class="flex  justify-center items-end">
+  <mat-paginator #paginator
+    (page)="handlePageEvent($event)"
+    [length]="allIngredientsLength$|async"
+    [showFirstLastButtons]="true"
+    [pageSize]="itemsOnPage$|async"
+    [pageIndex]="currentPage$|async"
+    [pageSizeOptions]="pageSizeOptions">
+  </mat-paginator>
 </div>
