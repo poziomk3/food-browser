@@ -14,6 +14,13 @@ const router: Routes = [
             (m) => m.IngredientsListComponent
           ),
       },
+      {
+        path: 'dishes',
+        loadComponent: () =>
+          import('../dishes-list/dishes-list.component').then(
+            (m) => m.DishesListComponent
+          ),
+      },
       { path: '**', redirectTo: 'ingredients' },
     ],
   },

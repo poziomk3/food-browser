@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, DoCheck,  OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../shared/material/material.service';
 
@@ -9,7 +9,7 @@ import { MaterialModule } from '../../../shared/material/material.service';
   templateUrl: './food-main.component.html',
   styleUrl: './food-main.component.scss',
 })
-export class FoodMainComponent implements OnChanges, OnInit {
+export class FoodMainComponent implements DoCheck, OnInit {
   activePage?: string | null;
   constructor(private router: Router) {}
 
@@ -19,7 +19,7 @@ export class FoodMainComponent implements OnChanges, OnInit {
   ngOnInit(): void {
     this.activateRoute();
   }
-  ngOnChanges(changes: SimpleChanges): void {
+  ngDoCheck(): void {
     this.activateRoute();
   }
 }
