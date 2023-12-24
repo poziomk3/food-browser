@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map,  tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { DatapaginationService } from './datapagination.service';
 export interface Product {
   idIngredient: number;
@@ -19,14 +19,13 @@ export interface IngredientsDTO {
 export class IngredientService {
   private paginator: DatapaginationService;
   constructor(private http: HttpClient) {
-    this.paginator = new DatapaginationService()
+    this.paginator = new DatapaginationService();
   }
 
   persistedData$: BehaviorSubject<Array<Product>> = new BehaviorSubject<
     Array<Product>
   >([]);
 
-  
   fetchAPI(): void {
     const url = 'https://www.themealdb.com/api/json/v1/1/list.php?i=list';
     this.http
@@ -40,6 +39,22 @@ export class IngredientService {
       .subscribe();
   }
 
+  getProductDetails(strName: string): Observable<Product> {
+    if (this.persistedData$.value.length === 0) this.fetchAPI();
+    return this.persistedData$.pipe(
+      map(
+        (ingredients) =>
+          ingredients.find(
+            (ingredient) => ingredient.strIngredient === strName
+          ) ?? {
+            idIngredient: 0,
+            strIngredient: '',
+            strDescription: '',
+            strType: '',
+          }
+      )
+    );
+  }
   getPage(page$: Observable<number>): Observable<Array<Product>> {
     if (this.persistedData$.value.length === 0) this.fetchAPI();
     return this.paginator.getPage(page$, this.persistedData$);

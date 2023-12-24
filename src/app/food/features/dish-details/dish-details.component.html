@@ -4,8 +4,7 @@
   <mat-tab-group
     mat-stretch-tabs="true"
     animationDuration="0ms"
-    mat-align-tabs="start"
-  >
+    mat-align-tabs="start">
     <mat-tab label="Details">
       <div class="mt-2">
         <mat-card>
@@ -13,9 +12,8 @@
             <mat-card-header>
               <mat-card-title-group>
                 <mat-card-title>{{ dish.strMeal }}</mat-card-title>
-                <mat-card-subtitle
-                  >{{ dish.strCategory }} {{ dish.strArea }}</mat-card-subtitle
-                >
+                <mat-card-subtitle>{{ dish.strCategory }} {{ dish.strArea
+                  }}</mat-card-subtitle>
 
                 <mat-card-subtitle class="mt-2">
                   <mat-chip-listbox>
@@ -34,17 +32,31 @@
                 <youtube-player
                   [width]="container.offsetWidth"
                   [height]="container.offsetWidth / 1.77"
-                  [videoId]="dish.strYoutube | extractYoutubeId"
-                ></youtube-player>
+                  [videoId]="dish.strYoutube | extractYoutubeId"></youtube-player>
               </div>
             </mat-card-content>
           </div>
         </mat-card>
       </div>
     </mat-tab>
-    <mat-tab label="Second">Content 2</mat-tab>
+    <!-- {{dish.}} -->
+    <mat-tab label="Second">
+
+      <div
+        class="relative  grid xl:grid-cols-5 sm:grid-cols-2   gap-5 p-[1rem] max-w-[1200px]  mx-auto ">
+
+        @for (ingredient of ingredients$|async ; track
+        ingredient[0].idIngredient ) {
+        <app-food-card [title]="ingredient[0].strIngredient"
+          [subtitle]="ingredient[1]"
+          [imgSrc]="'https://www.themealdb.com/images/ingredients/'+ingredient[0].strIngredient+'.png'">
+          <button mat-raised-button
+            color="primary">Details</button></app-food-card>
+        }
+      </div>
+
+    </mat-tab>
     <mat-tab label="Third">
-      {{ dish.strYoutube | extractYoutubeId }}
     </mat-tab>
   </mat-tab-group>
   }

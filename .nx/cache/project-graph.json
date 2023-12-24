@@ -334,6 +334,15 @@
         "hash": "sha512-7dTP4kU8O50yKMeOQ/74nJgRnfyVaOMKOalzUktMRdZR4MKN9JfG1XfqiUVFK0V8UNGLrOGI+M004wAnm3DOtg=="
       }
     },
+    "npm:@angular/youtube-player": {
+      "type": "npm",
+      "name": "npm:@angular/youtube-player",
+      "data": {
+        "version": "17.0.4",
+        "packageName": "@angular/youtube-player",
+        "hash": "sha512-afvqKyhRUHC5GvtLkSehqS1liA8VJD1Ox9znqMHZ+Xld0LR+qEQf20xX/oUE8TYorEL2CqCG4leMV6I+lhnrgg=="
+      }
+    },
     "npm:@assemblyscript/loader": {
       "type": "npm",
       "name": "npm:@assemblyscript/loader",
@@ -3347,6 +3356,15 @@
         "version": "8.5.10",
         "packageName": "@types/ws",
         "hash": "sha512-vmQSUcfalpIq0R9q7uTo2lXs6eGIpt9wtnLdMv9LVpIjCA/+ufZRozlVoVelIYixx1ugCBKDhn89vnsEGOCx9A=="
+      }
+    },
+    "npm:@types/youtube": {
+      "type": "npm",
+      "name": "npm:@types/youtube",
+      "data": {
+        "version": "0.0.42",
+        "packageName": "@types/youtube",
+        "hash": "sha512-Nqo3HMPFPcNyZ7HNFZJjpH+N4yXqpxBItG+41e7nL9zednovMRZMXWj36CctSznbBcbj6ucvkJDo5iZ8SKqLIw=="
       }
     },
     "npm:@typescript-eslint/eslint-plugin": {
@@ -11242,6 +11260,33 @@
       },
       {
         "source": "npm:@angular/ssr",
+        "target": "npm:tslib",
+        "type": "static"
+      }
+    ],
+    "npm:@angular/youtube-player": [
+      {
+        "source": "npm:@angular/youtube-player",
+        "target": "npm:@angular/common",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/youtube-player",
+        "target": "npm:@angular/core",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/youtube-player",
+        "target": "npm:rxjs",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/youtube-player",
+        "target": "npm:@types/youtube",
+        "type": "static"
+      },
+      {
+        "source": "npm:@angular/youtube-player",
         "target": "npm:tslib",
         "type": "static"
       }

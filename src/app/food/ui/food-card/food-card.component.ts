@@ -12,7 +12,9 @@ import { AsyncPipe } from '@angular/common';
 })
 export class FoodCardComponent {
   @Input()
-  title!: string;
+  title?: string;
   @Input()
-  imgSrc!: string;
+  imgSrc?: string;
+  @Input()
+  subtitle?: string;
 }
