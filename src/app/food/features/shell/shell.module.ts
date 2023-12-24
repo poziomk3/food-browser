@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { FoodMainComponent } from '../food-main/food-main.component';
+import { FoodHomeComponent } from '../food-home/food-home.component';
 
 const router: Routes = [
   {
     path: '',
-    component: FoodMainComponent,
+    component: FoodHomeComponent,
     children: [
       {
         path: 'ingredients',

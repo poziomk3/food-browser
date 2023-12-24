@@ -8,9 +8,10 @@ import { HttpClientModule } from '@angular/common/http'
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideRouter(routes),
-        provideClientHydration(),
-        provideAnimations(),
-        importProvidersFrom(HttpClientModule),
-    ],
+    provideRouter(routes),
+    provideClientHydration(),
+    provideAnimations(),
+    importProvidersFrom(HttpClientModule),
+    provideAnimations()
+],
 }
