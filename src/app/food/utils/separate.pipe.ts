@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core'
 
 @Pipe({
   name: 'separate',
@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SeparatePipe implements PipeTransform {
   transform(value: string, arg?: string): string[] {
-    return value ? value.split(arg ?? ',') : [];
+    return value ? value.split(arg ?? ',') : []
   }
 }

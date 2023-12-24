@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:food-app": "node dist/food-app/server/server.mjs",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "prepare": "husky install"
   },
   "private": true,
   "dependencies": {
@@ -46,6 +47,8 @@
     "@typescript-eslint/parser": "6.13.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.54.0",
+    "git-format-staged": "^3.0.0",
+    "husky": "^8.0.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -53,7 +56,10 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.32",
+    "prettier": "^3.1.1",
+    "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "^3.4.0",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "~5.2.2"
   }
 }

@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes } from '@angular/router'
 
 export const routes: Routes = [
   {
@@ -7,4 +7,4 @@ export const routes: Routes = [
       import('./food/features/shell/shell.module').then((m) => m.ShellModule),
   },
   { path: '**', redirectTo: '/food', pathMatch: 'full' },
-];
+]

@@ -1,11 +1,11 @@
-import { AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
   OnDestroy,
   OnInit,
-} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+} from '@angular/core'
+import { ActivatedRoute } from '@angular/router'
 import {
   Observable,
   Subscription,
@@ -13,18 +13,18 @@ import {
   map,
   switchMap,
   tap,
-} from 'rxjs';
+} from 'rxjs'
 import {
   DishesService,
   MealWithDetails,
-} from '../../data-access/dishes.service';
-import { MaterialModule } from '../../../shared/material/material.service';
-import { SeparatePipe } from '../../utils/separate.pipe';
-import { YouTubePlayerModule } from '@angular/youtube-player';
-import { ExtractYoutubeIdPipe } from '../../utils/extract-youtube-id.pipe';
-import { IngredientService } from '../../data-access/ingredient.service';
-import { Product } from '../../data-access/ingredient.service';
-import { FoodCardComponent } from '../../ui/food-card/food-card.component';
+} from '../../data-access/dishes.service'
+import { MaterialModule } from '../../../shared/material/material.service'
+import { SeparatePipe } from '../../utils/separate.pipe'
+import { YouTubePlayerModule } from '@angular/youtube-player'
+import { ExtractYoutubeIdPipe } from '../../utils/extract-youtube-id.pipe'
+import { IngredientService } from '../../data-access/ingredient.service'
+import { Product } from '../../data-access/ingredient.service'
+import { FoodCardComponent } from '../../ui/food-card/food-card.component'
 
 @Component({
   selector: 'app-dish-details',
@@ -49,11 +49,11 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
     private ingredientService: IngredientService
   ) {}
   ngOnDestroy(): void {
-    this.id?.unsubscribe();
+    this.id?.unsubscribe()
   }
-  id?: Subscription | null = null;
-  dishDetails$: Observable<MealWithDetails> | null = null;
-  ingredients$: Observable<Array<[Product, string]>> | null = null;
+  id?: Subscription | null = null
+  dishDetails$: Observable<MealWithDetails> | null = null
+  ingredients$: Observable<Array<[Product, string]>> | null = null
   ngOnInit(): void {
     // const tag = document.createElement('script');
 
@@ -65,30 +65,30 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
         tap((id) => {
           this.dishDetails$ = this.dishesService
             .getDishDetails(id)
-            .pipe(tap((data) => console.log(data)));
+            .pipe(tap((data) => console.log(data)))
 
           this.ingredients$ = this.dishDetails$.pipe(
             switchMap((data) => {
-              const measures: string[] = [];
+              const measures: string[] = []
               return combineLatest(
                 Object.entries(data)
                   .filter(([key, value]: [string, string]) => {
                     if (key.includes(`strMeasure`) && value)
-                      measures.push(value);
-                    return key.includes('strIngredient') && value;
+                      measures.push(value)
+                    return key.includes('strIngredient') && value
                   })
                   .map(([, value]: [string, string], index: number) =>
                     this.ingredientService.getProductDetails(value).pipe(
                       map((product): [Product, string] => {
-                        return [product, measures[index]];
+                        return [product, measures[index]]
                       })
                     )
                   )
-              );
+              )
             })
-          );
+          )
         })
       )
-      .subscribe();
+      .subscribe()
   }
 }

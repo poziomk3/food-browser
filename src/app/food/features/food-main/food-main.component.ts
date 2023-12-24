@@ -1,6 +1,6 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
-import { MaterialModule } from '../../../shared/material/material.service';
+import { Component, DoCheck, OnInit } from '@angular/core'
+import { Router, RouterModule } from '@angular/router'
+import { MaterialModule } from '../../../shared/material/material.service'
 
 @Component({
   selector: 'app-food-main',
@@ -10,17 +10,17 @@ import { MaterialModule } from '../../../shared/material/material.service';
   styleUrl: './food-main.component.scss',
 })
 export class FoodMainComponent implements DoCheck, OnInit {
-  activePage?: string | null;
+  activePage?: string | null
   constructor(private router: Router) {}
 
   activateRoute() {
-    this.activePage = this.router.url.split('/')[2];
-    if (this.router.url.split('/').length != 3) this.activePage = null;
+    this.activePage = this.router.url.split('/')[2]
+    if (this.router.url.split('/').length != 3) this.activePage = null
   }
   ngOnInit(): void {
-    this.activateRoute();
+    this.activateRoute()
   }
   ngDoCheck(): void {
-    this.activateRoute();
+    this.activateRoute()
   }
 }

@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { FoodMainComponent } from '../food-main/food-main.component';
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { FoodMainComponent } from '../food-main/food-main.component'
 
 const router: Routes = [
   {
@@ -28,10 +28,10 @@ const router: Routes = [
             (m) => m.DishDetailsComponent
           ),
       },
-      { path: '**', redirectTo: 'ingredients',pathMatch: 'full'},
+      { path: '**', redirectTo: 'ingredients', pathMatch: 'full' },
     ],
   },
-];
+]
 
 @NgModule({
   imports: [RouterModule.forChild(router)],

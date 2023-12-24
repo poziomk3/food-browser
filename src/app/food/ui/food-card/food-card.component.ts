@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { MaterialModule } from '../../../shared/material/material.service';
-import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { MaterialModule } from '../../../shared/material/material.service'
+import { AsyncPipe } from '@angular/common'
 
 @Component({
   selector: 'app-food-card',
@@ -12,9 +12,9 @@ import { AsyncPipe } from '@angular/common';
 })
 export class FoodCardComponent {
   @Input()
-  title?: string;
+  title?: string
   @Input()
-  imgSrc?: string;
+  imgSrc?: string
   @Input()
-  subtitle?: string;
+  subtitle?: string
 }

@@ -6210,6 +6210,15 @@
         "hash": "sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg=="
       }
     },
+    "npm:git-format-staged": {
+      "type": "npm",
+      "name": "npm:git-format-staged",
+      "data": {
+        "version": "3.0.0",
+        "packageName": "git-format-staged",
+        "hash": "sha512-cdDJxV06qY8ucBsW/uIFR4PYN/kDHl43nG8yg+VPPaDeLAf8hEPhEIJTeJ+yRClxcDSpoTmDPiFZUoxFx1wPCg=="
+      }
+    },
     "npm:glob-to-regexp": {
       "type": "npm",
       "name": "npm:glob-to-regexp",
@@ -6478,6 +6487,15 @@
         "version": "2.1.0",
         "packageName": "human-signals",
         "hash": "sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw=="
+      }
+    },
+    "npm:husky": {
+      "type": "npm",
+      "name": "npm:husky",
+      "data": {
+        "version": "8.0.3",
+        "packageName": "husky",
+        "hash": "sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg=="
       }
     },
     "npm:icss-utils": {
@@ -8469,6 +8487,24 @@
         "hash": "sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g=="
       }
     },
+    "npm:prettier": {
+      "type": "npm",
+      "name": "npm:prettier",
+      "data": {
+        "version": "3.1.1",
+        "packageName": "prettier",
+        "hash": "sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw=="
+      }
+    },
+    "npm:prettier-plugin-tailwindcss": {
+      "type": "npm",
+      "name": "npm:prettier-plugin-tailwindcss",
+      "data": {
+        "version": "0.5.9",
+        "packageName": "prettier-plugin-tailwindcss",
+        "hash": "sha512-9x3t1s2Cjbut2QiP+O0mDqV3gLXTe2CgRlQDgucopVkUdw26sQi53p/q4qvGxMLBDfk/dcTV57Aa/zYwz9l8Ew=="
+      }
+    },
     "npm:pretty-bytes": {
       "type": "npm",
       "name": "npm:pretty-bytes",
@@ -9493,6 +9529,15 @@
         "version": "2.6.2",
         "packageName": "tslib",
         "hash": "sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q=="
+      }
+    },
+    "npm:tslint-config-prettier": {
+      "type": "npm",
+      "name": "npm:tslint-config-prettier",
+      "data": {
+        "version": "1.18.0",
+        "packageName": "tslint-config-prettier",
+        "hash": "sha512-xPw9PgNPLG3iKRxmK7DWr+Ea/SzrvfHtjFt5LBl61gk2UBG/DB9kCXRjv+xyIU1rUtnayLeMUVJBcMX8Z17nDg=="
       }
     },
     "npm:tuf-js": {
@@ -21303,6 +21348,11 @@
     {
       "source": "npm:postcss-selector-parser",
       "target": "npm:util-deprecate",
+      "type": "static"
+    },
+    {
+      "source": "npm:prettier-plugin-tailwindcss",
+      "target": "npm:prettier",
       "type": "static"
     },
     {

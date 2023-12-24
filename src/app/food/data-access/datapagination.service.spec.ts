@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { DatapaginationService } from './datapagination.service';
+import { DatapaginationService } from './datapagination.service'
 
 describe('DatapaginationService', () => {
-  let service: DatapaginationService;
+  let service: DatapaginationService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(DatapaginationService);
-  });
+    TestBed.configureTestingModule({})
+    service = TestBed.inject(DatapaginationService)
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    expect(service).toBeTruthy()
+  })
+})
