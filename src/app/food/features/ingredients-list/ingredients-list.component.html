@@ -1,22 +1,15 @@
 <div
   class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] sm:grid-cols-2 xl:grid-cols-4">
   @for (ingredient of allIngredients | async; track ingredient.idIngredient) {
-    <app-food-card
-      [title]="ingredient.strIngredient"
-      [imgSrc]="
+  <app-food-card
+  (Clicked)="navigateToDestination(ingredient.idIngredient)"
+    [title]="ingredient.strIngredient"
+    [imgSrc]="
         'https://www.themealdb.com/images/ingredients/' +
         ingredient.strIngredient +
         '.png'
       ">
-      <button
-        mat-raised-button
-        color="primary"
-        [routerLink]="
-          '/food/ingredients/' + ingredient.idIngredient + '/details'
-        ">
-        Details
-      </button></app-food-card
-    >
+  </app-food-card>
   } @empty {}
 </div>
 <div class="flex items-end justify-center">

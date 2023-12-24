@@ -8,7 +8,7 @@ import { AsyncPipe } from '@angular/common';
 import { MaterialModule } from '../../../shared/material/material.service';
 import { PageEvent } from '@angular/material/paginator';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-ingredients-list',
   standalone: true,
@@ -25,7 +25,7 @@ export class IngredientsListComponent implements OnInit {
   itemsOnPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   allIngredientsLength$: Observable<number> | null = null;
 
-  constructor(private ingredientService: IngredientService) {}
+  constructor(private ingredientService: IngredientService,private router: Router) {}
 
   ngOnInit(): void {
     this.itemsOnPage$ = this.ingredientService.getNumberOnPage();
@@ -42,5 +42,8 @@ export class IngredientsListComponent implements OnInit {
       this.ingredientService.setNumberOnPage($event.pageSize);
     }
     this.currentPage$.next($event.pageIndex);
+  }
+  navigateToDestination(arg:number) {
+    this.router.navigate(['food','ingredients',arg,'details']);
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core'
 import { MaterialModule } from '../../../shared/material/material.service'
 import { AsyncPipe } from '@angular/common'
 
@@ -17,4 +17,11 @@ export class FoodCardComponent {
     imgSrc?: string
     @Input()
     subtitle?: string
+    @Output()
+    Clicked: EventEmitter<void> = new EventEmitter<void>()
+
+
+    handleClick  ()  {
+        this.Clicked.emit()
+    }
 }

@@ -8,7 +8,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MaterialModule } from '../../../shared/material/material.service';
 import { AsyncPipe } from '@angular/common';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dishes-list',
@@ -18,12 +18,16 @@ import { RouterModule } from '@angular/router';
   styleUrl: './dishes-list.component.scss',
 })
 export class DishesListComponent implements OnInit {
+
+
+
+
   pageSizeOptions = [1, 3, 5, 10, 30, 50, 70];
   allDishes$: Observable<Array<DishNoDetails>> | null = null;
   currentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   itemsOnPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   allIngredientsLength$: Observable<number> | null = null;
-  constructor(private dishesService: DishesService) {}
+  constructor(private dishesService: DishesService,private router: Router) {}
   ngOnInit(): void {
     this.itemsOnPage$ = this.dishesService.getNumberOnPage();
     this.allDishes$ = this.dishesService.getPage(this.currentPage$);
@@ -39,5 +43,8 @@ export class DishesListComponent implements OnInit {
       this.dishesService.setNumberOnPage($event.pageSize);
     }
     this.currentPage$.next($event.pageIndex);
+  }
+  navigateToDestination(arg:string) {
+    this.router.navigate(['food','dishes',arg,'details']);
   }
 }

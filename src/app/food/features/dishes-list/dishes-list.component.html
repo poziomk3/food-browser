@@ -1,15 +1,18 @@
 <div
-  class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] md:grid-cols-2 xl:grid-cols-3">
-  @for (dish of allDishes$ | async; track dish.idMeal) {
-    <app-food-card [title]="dish.strMeal" [imgSrc]="dish.strMealThumb">
-      <a
-        mat-raised-button
-        color="primary"
-        routerLink="{{ dish.idMeal }}/details"
-        >Details</a
-      >
-    </app-food-card>
-  } @empty {}
+  class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] md:grid-cols-2 xl:grid-cols-3  ">
+  @if(allDishes$ | async; )
+
+  {
+
+  @for (dish of allDishes$|async; track dish.idMeal) {
+  <app-food-card [subtitle]="dish.strMeal" [imgSrc]="dish.strMealThumb"
+    (Clicked)="navigateToDestination(dish.idMeal)">
+    <a
+      mat-raised-button
+      color="primary"
+      routerLink="{{ dish.idMeal }}/details">Details</a>
+  </app-food-card>
+  } @empty {}}
 </div>
 <div class="flex items-end justify-center">
   <mat-paginator
