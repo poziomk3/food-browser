@@ -34,8 +34,6 @@
     "@typescript-eslint/parser": "6.13.1",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.54.0",
-    "git-format-staged": "^3.0.0",
-    "husky": "^8.0.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -46,7 +44,6 @@
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "^3.4.0",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "~5.2.2"
   },
   "pathMappings": {},
@@ -72,19 +69,19 @@
       },
       {
         "file": ".nx/cache/file-map.json",
-        "hash": "2457590464565776430"
+        "hash": "8907484271602753347"
       },
       {
         "file": ".nx/cache/lockfile.hash",
-        "hash": "10925652775790343332"
+        "hash": "132320762681227918"
       },
       {
         "file": ".nx/cache/parsed-lock-file.json",
-        "hash": "528242341441334539"
+        "hash": "9901108849298927296"
       },
       {
         "file": ".nx/cache/project-graph.json",
-        "hash": "7065619270050289950"
+        "hash": "2482811648001092107"
       },
       {
         "file": ".prettierrc",

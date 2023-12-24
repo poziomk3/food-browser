@@ -4,9 +4,9 @@ import { RouterOutlet } from '@angular/router'
 import { MaterialModule } from './shared/material/material.service'
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, MaterialModule],
-  templateUrl: './app.component.html',
+    selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule, RouterOutlet, MaterialModule],
+    templateUrl: './app.component.html',
 })
 export class AppComponent {}

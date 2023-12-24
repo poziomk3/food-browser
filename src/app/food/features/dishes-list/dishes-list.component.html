@@ -1,26 +1,26 @@
 <div
-  class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] md:grid-cols-2 xl:grid-cols-3"
+    class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] md:grid-cols-2 xl:grid-cols-3"
 >
-  @for (dish of allDishes$ | async; track dish.idMeal) {
-    <app-food-card [title]="dish.strMeal" [imgSrc]="dish.strMealThumb">
-      <a
-        mat-raised-button
-        color="primary"
-        routerLink="{{ dish.idMeal }}/details"
-        >Details</a
-      >
-    </app-food-card>
-  } @empty {}
+    @for (dish of allDishes$ | async; track dish.idMeal) {
+        <app-food-card [title]="dish.strMeal" [imgSrc]="dish.strMealThumb">
+            <a
+                mat-raised-button
+                color="primary"
+                routerLink="{{ dish.idMeal }}/details"
+                >Details</a
+            >
+        </app-food-card>
+    } @empty {}
 </div>
 <div class="flex items-end justify-center">
-  <mat-paginator
-    #paginator
-    (page)="handlePageEvent($event)"
-    [length]="allIngredientsLength$ | async"
-    [showFirstLastButtons]="true"
-    [pageSize]="itemsOnPage$ | async"
-    [pageIndex]="currentPage$ | async"
-    [pageSizeOptions]="pageSizeOptions"
-  >
-  </mat-paginator>
+    <mat-paginator
+        #paginator
+        (page)="handlePageEvent($event)"
+        [length]="allIngredientsLength$ | async"
+        [showFirstLastButtons]="true"
+        [pageSize]="itemsOnPage$ | async"
+        [pageIndex]="currentPage$ | async"
+        [pageSizeOptions]="pageSizeOptions"
+    >
+    </mat-paginator>
 </div>
