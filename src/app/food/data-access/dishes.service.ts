@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { DatapaginationService } from './datapagination.service';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
 
 export interface MealNoDetails {
   strMeal: string;
@@ -68,14 +68,13 @@ interface MealDetailsDTO {
   providedIn: 'root',
 })
 export class DishesService {
-  paginator: DatapaginationService=new DatapaginationService();
-  http=inject(HttpClient);
+  paginator: DatapaginationService = new DatapaginationService();
+  http = inject(HttpClient);
 
   persistedData$: BehaviorSubject<Array<MealNoDetails>> = new BehaviorSubject<
     Array<MealNoDetails>
   >([]);
 
-  
   // https://www.themealdb.com/api/json/v1/1/search.php?s= albo https://www.themealdb.com/api/json/v1/1/filter.php?i=
   fetchAPI(): void {
     const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
@@ -93,6 +92,17 @@ export class DishesService {
   getDishDetails(id: string): Observable<MealWithDetails> {
     const url = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + id;
     return this.http.get<MealDetailsDTO>(url).pipe(map(data => data.meals[0]));
+  }
+
+  getDishesWithIngredient(
+    ingredient: Observable<string>
+  ): Observable<Array<MealNoDetails>> {
+    const url = 'https://www.themealdb.com/api/json/v1/1/filter.php?i=';
+    return ingredient.pipe(
+      switchMap(ing =>
+        this.http.get<MealsDTO>(url + ing).pipe(map(data => data.meals))
+      )
+    );
   }
 
   getPage(page$: Observable<number>): Observable<Array<MealNoDetails>> {

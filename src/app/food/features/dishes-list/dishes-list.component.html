@@ -7,10 +7,7 @@
   @for (dish of allDishes$|async; track dish.idMeal) {
   <app-food-card [subtitle]="dish.strMeal" [imgSrc]="dish.strMealThumb"
     (Clicked)="navigateToDestination(dish.idMeal)">
-    <a
-      mat-raised-button
-      color="primary"
-      routerLink="{{ dish.idMeal }}/details">Details</a>
+   
   </app-food-card>
   } @empty {}}
 </div>
