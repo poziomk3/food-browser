@@ -8,13 +8,14 @@ import { AsyncPipe } from '@angular/common'
 import { MaterialModule } from '../../../shared/material/material.service'
 import { PageEvent } from '@angular/material/paginator'
 import { FoodCardComponent } from '../../ui/food-card/food-card.component'
+import { RouterModule } from '@angular/router'
 @Component({
     selector: 'app-ingredients-list',
     standalone: true,
     templateUrl: './ingredients-list.component.html',
     styleUrl: './ingredients-list.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [AsyncPipe, MaterialModule, FoodCardComponent],
+    imports: [AsyncPipe, MaterialModule, FoodCardComponent,RouterModule],
 })
 export class IngredientsListComponent implements OnInit {
     pageSizeOptions = [1, 3, 5, 10, 30, 50, 70]

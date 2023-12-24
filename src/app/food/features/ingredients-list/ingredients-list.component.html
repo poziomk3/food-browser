@@ -1,19 +1,17 @@
 <div
-    class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] sm:grid-cols-2 xl:grid-cols-5"
->
+    class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] sm:grid-cols-2 xl:grid-cols-5">
     @for (ingredient of allIngredients | async; track ingredient.idIngredient) {
-        <app-food-card
-            [title]="ingredient.strIngredient"
-            [imgSrc]="
+    <app-food-card
+        [title]="ingredient.strIngredient"
+        [imgSrc]="
                 'https://www.themealdb.com/images/ingredients/' +
                 ingredient.strIngredient +
                 '.png'
-            "
-        >
-            <button mat-raised-button color="primary">
-                Details
-            </button></app-food-card
-        >
+            ">
+        <button mat-raised-button color="primary"
+            [routerLink]="'/food/ingredients/'+ingredient.idIngredient+'/details'">
+            Details
+        </button></app-food-card>
     } @empty {}
 </div>
 <div class="flex items-end justify-center">
@@ -24,7 +22,6 @@
         [showFirstLastButtons]="true"
         [pageSize]="itemsOnPage$ | async"
         [pageIndex]="currentPage$ | async"
-        [pageSizeOptions]="pageSizeOptions"
-    >
+        [pageSizeOptions]="pageSizeOptions">
     </mat-paginator>
 </div>

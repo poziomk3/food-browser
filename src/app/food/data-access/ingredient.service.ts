@@ -39,13 +39,29 @@ export class IngredientService {
             .subscribe()
     }
 
-    getProductDetails(strName: string): Observable<Product> {
+    getProductDetailsByName(strName: string): Observable<Product> {
         if (this.persistedData$.value.length === 0) this.fetchAPI()
         return this.persistedData$.pipe(
             map(
                 (ingredients) =>
                     ingredients.find(
                         (ingredient) => ingredient.strIngredient === strName
+                    ) ?? {
+                        idIngredient: 0,
+                        strIngredient: '',
+                        strDescription: '',
+                        strType: '',
+                    }
+            )
+        )
+    }
+    getProductDetailsById(id: number): Observable<Product> {
+        if (this.persistedData$.value.length === 0) this.fetchAPI()
+        return this.persistedData$.pipe(
+            map(
+                (ingredients) =>
+                    ingredients.find(
+                        (ingredient) => ingredient.idIngredient === id
                     ) ?? {
                         idIngredient: 0,
                         strIngredient: '',

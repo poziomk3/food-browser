@@ -91,7 +91,7 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
                                             index: number
                                         ) =>
                                             this.ingredientService
-                                                .getProductDetails(value)
+                                                .getProductDetailsByName(value)
                                                 .pipe(
                                                     map(
                                                         (

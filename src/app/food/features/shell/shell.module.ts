@@ -28,6 +28,14 @@ const router: Routes = [
                         (m) => m.DishDetailsComponent
                     ),
             },
+            {
+                path: 'ingredients/:id/details',
+                loadComponent: () =>
+                    import(
+                        '../ingredient-details/ingredient-details.component'
+                    ).then((m) => m.IngredientDetailsComponent),
+            },
+
             { path: '**', redirectTo: 'ingredients', pathMatch: 'full' },
         ],
     },
