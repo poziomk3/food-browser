@@ -1,27 +1,32 @@
 <div
-    class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] sm:grid-cols-2 xl:grid-cols-5">
-    @for (ingredient of allIngredients | async; track ingredient.idIngredient) {
+  class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] sm:grid-cols-2 xl:grid-cols-5">
+  @for (ingredient of allIngredients | async; track ingredient.idIngredient) {
     <app-food-card
-        [title]="ingredient.strIngredient"
-        [imgSrc]="
-                'https://www.themealdb.com/images/ingredients/' +
-                ingredient.strIngredient +
-                '.png'
-            ">
-        <button mat-raised-button color="primary"
-            [routerLink]="'/food/ingredients/'+ingredient.idIngredient+'/details'">
-            Details
-        </button></app-food-card>
-    } @empty {}
+      [title]="ingredient.strIngredient"
+      [imgSrc]="
+        'https://www.themealdb.com/images/ingredients/' +
+        ingredient.strIngredient +
+        '.png'
+      ">
+      <button
+        mat-raised-button
+        color="primary"
+        [routerLink]="
+          '/food/ingredients/' + ingredient.idIngredient + '/details'
+        ">
+        Details
+      </button></app-food-card
+    >
+  } @empty {}
 </div>
 <div class="flex items-end justify-center">
-    <mat-paginator
-        #paginator
-        (page)="handlePageEvent($event)"
-        [length]="allIngredientsLength$ | async"
-        [showFirstLastButtons]="true"
-        [pageSize]="itemsOnPage$ | async"
-        [pageIndex]="currentPage$ | async"
-        [pageSizeOptions]="pageSizeOptions">
-    </mat-paginator>
+  <mat-paginator
+    #paginator
+    (page)="handlePageEvent($event)"
+    [length]="allIngredientsLength$ | async"
+    [showFirstLastButtons]="true"
+    [pageSize]="itemsOnPage$ | async"
+    [pageIndex]="currentPage$ | async"
+    [pageSizeOptions]="pageSizeOptions">
+  </mat-paginator>
 </div>
