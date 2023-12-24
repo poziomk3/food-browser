@@ -1,5 +1,10 @@
 import { AsyncPipe, JsonPipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   Observable,
@@ -14,7 +19,7 @@ import {
   MealWithDetails,
 } from '../../data-access/dishes.service';
 import { MaterialModule } from '../../../shared/material/material.service';
-import { SeparateOnCommaPipe } from '../../utils/separate-on-comma.pipe';
+import { SeparatePipe } from '../../utils/separate.pipe';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { ExtractYoutubeIdPipe } from '../../utils/extract-youtube-id.pipe';
 import { IngredientService } from '../../data-access/ingredient.service';
@@ -30,11 +35,12 @@ import { FoodCardComponent } from '../../ui/food-card/food-card.component';
     AsyncPipe,
     JsonPipe,
     MaterialModule,
-    SeparateOnCommaPipe,
+    SeparatePipe,
     YouTubePlayerModule,
     ExtractYoutubeIdPipe,
     FoodCardComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DishDetailsComponent implements OnInit, OnDestroy {
   constructor(
@@ -49,10 +55,10 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
   dishDetails$: Observable<MealWithDetails> | null = null;
   ingredients$: Observable<Array<[Product, string]>> | null = null;
   ngOnInit(): void {
-    const tag = document.createElement('script');
+    // const tag = document.createElement('script');
 
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.body.appendChild(tag);
+    // tag.src = 'https://www.youtube.com/iframe_api';
+    // document.body.appendChild(tag);
     this.id = this.route.params
       .pipe(
         map((params) => params['id']),
@@ -60,30 +66,29 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
           this.dishDetails$ = this.dishesService
             .getDishDetails(id)
             .pipe(tap((data) => console.log(data)));
+
+          this.ingredients$ = this.dishDetails$.pipe(
+            switchMap((data) => {
+              const measures: string[] = [];
+              return combineLatest(
+                Object.entries(data)
+                  .filter(([key, value]: [string, string]) => {
+                    if (key.includes(`strMeasure`) && value)
+                      measures.push(value);
+                    return key.includes('strIngredient') && value;
+                  })
+                  .map(([, value]: [string, string], index: number) =>
+                    this.ingredientService.getProductDetails(value).pipe(
+                      map((product): [Product, string] => {
+                        return [product, measures[index]];
+                      })
+                    )
+                  )
+              );
+            })
+          );
         })
       )
       .subscribe();
-
-    if (this.dishDetails$) {
-      this.ingredients$ = this.dishDetails$.pipe(
-        switchMap((data) => {
-          const measures: string[] = [];
-          return combineLatest(
-            Object.entries(data)
-              .filter(([key, value]: [string, string]) => {
-                if (key.includes(`strMeasure`) && value) measures.push(value);
-                return key.includes('strIngredient') && value;
-              })
-              .map(([, value]: [string, string], index: number) =>
-                this.ingredientService.getProductDetails(value).pipe(
-                  map((product): [Product, string] => {
-                    return [product, measures[index]];
-                  })
-                )
-              )
-          );
-        })
-      );
-    }
   }
 }

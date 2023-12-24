@@ -1,8 +1,8 @@
-import { SeparateOnCommaPipe } from './separate-on-comma.pipe';
+import { SeparatePipe } from './separate.pipe';
 
 describe('SeparateOnCommaPipe', () => {
   it('create an instance', () => {
-    const pipe = new SeparateOnCommaPipe();
+    const pipe = new SeparatePipe();
     expect(pipe).toBeTruthy();
   });
 });

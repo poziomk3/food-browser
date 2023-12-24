@@ -1,10 +1,9 @@
+
+
 <div class="max-w-[1400px] mx-auto mt-[2rem] text-xl">
   @if (dishDetails$ |async ;as dish) {
 
-  <mat-tab-group
-    mat-stretch-tabs="true"
-    animationDuration="0ms"
-    mat-align-tabs="start">
+  <mat-tab-group mat-stretch-tabs="true" animationDuration="0ms" mat-align-tabs="start">
     <mat-tab label="Details">
       <div class="mt-2">
         <mat-card>
@@ -17,7 +16,7 @@
 
                 <mat-card-subtitle class="mt-2">
                   <mat-chip-listbox>
-                    @for (tag of (dish.strTags|separateOnComma);track $index ) {
+                    @for (tag of (dish.strTags|separate);track $index ) {
                     <mat-chip color="primary"> {{ tag }}</mat-chip>
                     }
                   </mat-chip-listbox>
@@ -29,34 +28,41 @@
               <!-- <a
                                 href="{{dish.strSource}}">SourceLink</a> -->
               <div class="mx-auto mt-4 w-full flex" #container>
-                <youtube-player
-                  [width]="container.offsetWidth"
+                <youtube-player suggestedQuality="highres" [startSeconds]="0" [width]="container.offsetWidth"
                   [height]="container.offsetWidth / 1.77"
                   [videoId]="dish.strYoutube | extractYoutubeId"></youtube-player>
+
               </div>
+
             </mat-card-content>
           </div>
         </mat-card>
       </div>
     </mat-tab>
     <!-- {{dish.}} -->
-    <mat-tab label="Second">
+    <mat-tab label="Ingredients">
 
-      <div
-        class="relative  grid xl:grid-cols-5 sm:grid-cols-2   gap-5 p-[1rem] max-w-[1200px]  mx-auto ">
+      <div class="relative  grid xl:grid-cols-5 sm:grid-cols-2   gap-5 p-[1rem] max-w-[1200px]  mx-auto ">
 
         @for (ingredient of ingredients$|async ; track
         ingredient[0].idIngredient ) {
-        <app-food-card [title]="ingredient[0].strIngredient"
-          [subtitle]="ingredient[1]"
+        <app-food-card [title]="ingredient[0].strIngredient" [subtitle]="ingredient[1]"
           [imgSrc]="'https://www.themealdb.com/images/ingredients/'+ingredient[0].strIngredient+'.png'">
-          <button mat-raised-button
-            color="primary">Details</button></app-food-card>
+          <button mat-raised-button color="primary">Details</button></app-food-card>
         }
       </div>
 
     </mat-tab>
-    <mat-tab label="Third">
+    <h1>Recipe</h1>
+    <mat-tab label="Recipe">
+      <mat-list>
+
+        
+        @for (sentence of (dish.strInstructions|separate:'.');track $index ) {
+          <mat-list-item class="list"> {{ sentence }}<br /></mat-list-item>
+        }
+      </mat-list>
+
     </mat-tab>
   </mat-tab-group>
   }
