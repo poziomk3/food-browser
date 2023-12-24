@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   IngredientService,
@@ -25,21 +25,19 @@ export class IngredientsListComponent implements OnInit {
   itemsOnPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   allIngredientsLength$: Observable<number> | null = null;
 
-  constructor(private ingredientService: IngredientService,private router: Router) {}
+  ingredientsService = inject(IngredientService);
+  router=inject(Router);
 
   ngOnInit(): void {
-    this.itemsOnPage$ = this.ingredientService.getNumberOnPage();
-    this.allIngredients = this.ingredientService.getPage(this.currentPage$);
-    this.allIngredientsLength$ = this.ingredientService.getFullLength();
+    this.itemsOnPage$ = this.ingredientsService.getNumberOnPage();
+    this.allIngredients = this.ingredientsService.getPage(this.currentPage$);
+    this.allIngredientsLength$ = this.ingredientsService.getFullLength();
   }
 
-  nextPage(page: number) {
-    this.currentPage$.next(page);
-  }
 
   handlePageEvent($event: PageEvent) {
     if ($event.pageSize != this.itemsOnPage$.value) {
-      this.ingredientService.setNumberOnPage($event.pageSize);
+      this.ingredientsService.setNumberOnPage($event.pageSize);
     }
     this.currentPage$.next($event.pageIndex);
   }

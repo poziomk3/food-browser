@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   MealNoDetails as DishNoDetails,
@@ -18,24 +18,18 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './dishes-list.component.scss',
 })
 export class DishesListComponent implements OnInit {
-
-
-
+  dishesService = inject(DishesService);
+  router = inject(Router);
 
   pageSizeOptions = [1, 3, 5, 10, 30, 50, 70];
   allDishes$: Observable<Array<DishNoDetails>> | null = null;
   currentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   itemsOnPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   allIngredientsLength$: Observable<number> | null = null;
-  constructor(private dishesService: DishesService,private router: Router) {}
   ngOnInit(): void {
     this.itemsOnPage$ = this.dishesService.getNumberOnPage();
     this.allDishes$ = this.dishesService.getPage(this.currentPage$);
     this.allIngredientsLength$ = this.dishesService.getFullLength();
-  }
-
-  nextPage(page: number) {
-    this.currentPage$.next(page);
   }
 
   handlePageEvent($event: PageEvent) {
@@ -44,7 +38,7 @@ export class DishesListComponent implements OnInit {
     }
     this.currentPage$.next($event.pageIndex);
   }
-  navigateToDestination(arg:string) {
-    this.router.navigate(['food','dishes',arg,'details']);
+  navigateToDestination(arg: string) {
+    this.router.navigate(['food', 'dishes', arg, 'details']);
   }
 }

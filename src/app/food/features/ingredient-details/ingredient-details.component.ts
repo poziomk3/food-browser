@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import {
   IngredientService,
   Product,
 } from '../../data-access/ingredient.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, map, tap } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
@@ -18,23 +18,20 @@ export class IngredientDetailsComponent implements OnInit, OnDestroy {
   id$: Subscription | null = null;
   ingredientDetails$: Observable<Product> | null = null;
 
-  constructor(
-    private ingredientsService: IngredientService,
-    private route: ActivatedRoute
-  ) {}
-  ngOnDestroy(): void {
-    this.id$?.unsubscribe();
-  }
+  ingredientsService = inject(IngredientService);
+  route = inject(ActivatedRoute);
+
   ngOnInit(): void {
     this.ingredientsService.fetchAPI();
     this.id$ = this.route.params
-      .pipe(
-        map(params => params['id']),
-        tap(data => {
-          this.ingredientDetails$ =
-            this.ingredientsService.getProductDetailsById(data);
-        })
-      )
-      .subscribe();
+      .pipe(map(params => params['id']))
+      .subscribe(id => {
+        this.ingredientDetails$ =
+          this.ingredientsService.getProductDetailsById(id);
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.id$?.unsubscribe();
   }
 }

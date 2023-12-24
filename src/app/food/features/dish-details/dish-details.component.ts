@@ -4,8 +4,9 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  inject,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   Observable,
   Subscription,
@@ -43,52 +44,55 @@ import { FoodCardComponent } from '../../ui/food-card/food-card.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DishDetailsComponent implements OnInit, OnDestroy {
-  constructor(
-    private route: ActivatedRoute,
-    private dishesService: DishesService,
-    private ingredientService: IngredientService
-  ) {}
-  ngOnDestroy(): void {
-    this.id?.unsubscribe();
-  }
+  route = inject(ActivatedRoute);
+  router = inject(Router);
+  dishesService = inject(DishesService);
+  ingredientService = inject(IngredientService);
+
   id?: Subscription | null = null;
   dishDetails$: Observable<MealWithDetails> | null = null;
   ingredients$: Observable<Array<[Product, string]>> | null = null;
+
   ngOnInit(): void {
-    // const tag = document.createElement('script');
-
-    // tag.src = 'https://www.youtube.com/iframe_api';
-    // document.body.appendChild(tag);
     this.id = this.route.params
-      .pipe(
-        map(params => params['id']),
-        tap(id => {
-          this.dishDetails$ = this.dishesService
-            .getDishDetails(id)
-            .pipe(tap(data => console.log(data)));
+      .pipe(map(params => params['id']))
+      .subscribe(id => {
+        this.dishDetails$ = this.dishesService
+          .getDishDetails(id)
+          .pipe(tap(data => console.log(data)));
+      });
+    this.ingredients$ = this.prepareIngredients();
+  }
 
-          this.ingredients$ = this.dishDetails$.pipe(
-            switchMap(data => {
-              const measures: string[] = [];
-              return combineLatest(
-                Object.entries(data)
-                  .filter(([key, value]: [string, string]) => {
-                    if (key.includes(`strMeasure`) && value)
-                      measures.push(value);
-                    return key.includes('strIngredient') && value;
-                  })
-                  .map(([, value]: [string, string], index: number) =>
-                    this.ingredientService.getProductDetailsByName(value).pipe(
-                      map((product): [Product, string] => {
-                        return [product, measures[index]];
-                      })
-                    )
-                  )
-              );
+  prepareIngredients() {
+    if (this.dishDetails$)
+      return this.dishDetails$.pipe(
+        switchMap(data => {
+          const measures: string[] = [];
+          const prods: Observable<Product>[] = [];
+          Object.entries(data).forEach(([key, value]: [string, string]) => {
+            if (key.includes(`strMeasure`) && value) measures.push(value);
+            else if (key.includes('strIngredient') && value) {
+              prods.push(this.ingredientService.getProductDetailsByName(value));
+            }
+          });
+          return combineLatest(prods).pipe(
+            map((products): Array<[Product, string]> => {
+              return products.map((product, index) => {
+                return [product, measures[index]];
+              });
             })
           );
-        })
-      )
-      .subscribe();
+        }),
+      );
+    return null;
+  }
+
+  ngOnDestroy(): void {
+    this.id?.unsubscribe();
+  }
+
+  navigateToDestination(arg: number) {
+    this.router.navigate(['food', 'ingredients', arg, 'details']);
   }
 }

@@ -6,9 +6,6 @@
     animationDuration="0ms"
     mat-align-tabs="start">
     <mat-tab label="Details">
-
-      <!-- <a
-                                href="{{dish.strSource}}">SourceLink</a> -->
       <div class="mx-auto mt-4 grid w-full p-[3rem]  gap-[1rem] lg:grid-cols-2">
         <mat-card>
 
@@ -30,7 +27,7 @@
           </mat-card-header>
 
         </mat-card>
-        <div  #container>
+        <div #container>
           <youtube-player
             suggestedQuality="highres"
             [startSeconds]="0"
@@ -54,14 +51,13 @@
         <app-food-card
           [title]="ingredient[0].strIngredient"
           [subtitle]="ingredient[1]"
+          (Clicked)="navigateToDestination(ingredient[0].idIngredient)"
           [imgSrc]="
                 'https://www.themealdb.com/images/ingredients/' +
                 ingredient[0].strIngredient +
                 '.png'
               ">
-          <button mat-raised-button color="primary">
-            Details
-          </button></app-food-card>
+        </app-food-card>
         }
       </div>
     </mat-tab>
