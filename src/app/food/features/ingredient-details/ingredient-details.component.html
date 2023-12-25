@@ -1,5 +1,7 @@
 @if (ingredientDetails$ | async; as ingredient){
 <mat-tab-group
+    [selectedIndex]="paramsMap.get('page')?.value"
+    (selectedIndexChange)="paramsMap.get('page')?.setValue($event)"
     mat-stretch-tabs="true"
     animationDuration="0ms"
     mat-align-tabs="start">
@@ -29,7 +31,8 @@
 
             @for (dish of allDishes$|async; track dish.idMeal) {
             <app-food-card [subtitle]="dish.strMeal"
-                [imgSrc]="dish.strMealThumb"  (Clicked)="navigateToDestination(dish.idMeal)">
+                [imgSrc]="dish.strMealThumb"
+                (Clicked)="navigateToDestination(dish.idMeal)">
 
             </app-food-card>
             } @empty {}}

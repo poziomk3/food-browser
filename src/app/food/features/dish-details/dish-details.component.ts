@@ -17,7 +17,7 @@ import { ExtractYoutubeIdPipe } from '../../utils/extract-youtube-id.pipe';
 import { IngredientService } from '../../data-access/ingredient.service';
 import { Product } from '../../data-access/ingredient.service';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
-import { FoodDetailsComponent } from '../food-details/food-details.component';
+import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
 
 @Component({
   selector: 'app-dish-details',
@@ -36,7 +36,7 @@ import { FoodDetailsComponent } from '../food-details/food-details.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DishDetailsComponent
-  extends FoodDetailsComponent
+  extends PageInUrlComponent
   implements OnInit
 {
   dishesService = inject(DishesService);

@@ -10,25 +10,30 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-food-details',
+  selector: 'app-page-in-url',
   standalone: true,
   imports: [],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './food-details.component.html',
-  styleUrl: './food-details.component.scss',
+  templateUrl: './page-in-url.component.html',
+  styleUrl: './page-in-url.component.scss',
 })
-export class FoodDetailsComponent implements OnInit, OnDestroy {
-  selected = new FormControl(0);
+export class PageInUrlComponent implements OnInit, OnDestroy {
   route = inject(ActivatedRoute);
   router = inject(Router);
-
+  paramsMap: Map<string, FormControl> = new Map<string, FormControl>();
+  subscriptions: Subscription[] = [];
   ngOnInit(): void {
-    console.log('essa');
-    const page = this.route.snapshot.queryParams['page'] || 0;
-    this.selected.setValue(page);
+    if (this.paramsMap.size == 0)
+      this.paramsMap.set('page', new FormControl(0));
 
-    this.sub = this.selected.valueChanges.subscribe(newValue => {
-      if (newValue != null) this.setRouteParams(newValue);
+    this.paramsMap.forEach((value, key, map) => {
+      // You can mutate the value here
+      map.set(key, this.route.snapshot.queryParams[key]);
+      this.subscriptions.push(
+        value.valueChanges.subscribe(newValue => {
+          if (newValue != null) this.setRouteParams(newValue);
+        })
+      );
     });
   }
   ngOnDestroy(): void {

@@ -8,7 +8,8 @@ import { PageEvent } from '@angular/material/paginator';
 import { MaterialModule } from '../../../shared/material/material.service';
 import { AsyncPipe } from '@angular/common';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
 
 @Component({
   selector: 'app-dishes-list',
@@ -17,19 +18,22 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './dishes-list.component.html',
   styleUrl: './dishes-list.component.scss',
 })
-export class DishesListComponent implements OnInit {
+export class DishesListComponent extends PageInUrlComponent implements OnInit {
   dishesService = inject(DishesService);
-  router = inject(Router);
 
   pageSizeOptions = [1, 3, 5, 10, 30, 50, 70];
   allDishes$: Observable<Array<DishNoDetails>> | null = null;
   currentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   itemsOnPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   allIngredientsLength$: Observable<number> | null = null;
-  ngOnInit(): void {
+  override ngOnInit(): void {
+    super.ngOnInit();
     this.itemsOnPage$ = this.dishesService.getNumberOnPage();
     this.allDishes$ = this.dishesService.getPage(this.currentPage$);
     this.allIngredientsLength$ = this.dishesService.getFullLength();
+    console.log(this.paramsMap.get('page')?.value)
+    if (this.paramsMap.get('page')?.value != null)
+      this.currentPage$.next(this.paramsMap.get('page')?.value);
   }
 
   handlePageEvent($event: PageEvent) {
@@ -37,6 +41,8 @@ export class DishesListComponent implements OnInit {
       this.dishesService.setNumberOnPage($event.pageSize);
     }
     this.currentPage$.next($event.pageIndex);
+    this.paramsMap.get('page')?.setValue($event.pageIndex);
+    
   }
   navigateToDestination(arg: string) {
     this.router.navigate(['food', 'dishes', 'details', arg], {
