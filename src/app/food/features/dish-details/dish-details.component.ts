@@ -83,7 +83,7 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
               });
             })
           );
-        }),
+        })
       );
     return null;
   }
@@ -93,6 +93,6 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
   }
 
   navigateToDestination(arg: number) {
-    this.router.navigate(['food', 'ingredients', arg, 'details']);
+    this.router.navigate(['food', 'ingredients', 'details', arg]);
   }
 }

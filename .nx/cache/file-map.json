@@ -65,11 +65,11 @@
       },
       {
         "file": ".nx/cache/file-map.json",
-        "hash": "6665387820838052705"
+        "hash": "9156177970258229147"
       },
       {
         "file": ".nx/cache/lockfile.hash",
-        "hash": "11662021685143964652"
+        "hash": "1617132855140941077"
       },
       {
         "file": ".nx/cache/parsed-lock-file.json",
@@ -101,15 +101,15 @@
       },
       {
         "file": "angular.json",
-        "hash": "7500121492899092317"
+        "hash": "5197435250983659385"
       },
       {
         "file": "package-lock.json",
-        "hash": "10022891508785326343"
+        "hash": "4188412578675269188"
       },
       {
         "file": "package.json",
-        "hash": "17549592433770748820"
+        "hash": "1348390438233912883"
       },
       {
         "file": "server.ts",
@@ -133,7 +133,7 @@
       },
       {
         "file": "src/app/app.config.ts",
-        "hash": "1882761045720296486"
+        "hash": "1127179521238406131"
       },
       {
         "file": "src/app/app.routes.ts",
@@ -145,7 +145,7 @@
       },
       {
         "file": "src/app/food/data-access/datapagination.service.ts",
-        "hash": "16072617445628217580"
+        "hash": "2302836410416888386"
       },
       {
         "file": "src/app/food/data-access/dishes.service.spec.ts",
@@ -153,7 +153,7 @@
       },
       {
         "file": "src/app/food/data-access/dishes.service.ts",
-        "hash": "5497220148912901627"
+        "hash": "15434395691620332828"
       },
       {
         "file": "src/app/food/data-access/ingredient.service.spec.ts",
@@ -161,11 +161,11 @@
       },
       {
         "file": "src/app/food/data-access/ingredient.service.ts",
-        "hash": "5436876962757290827"
+        "hash": "5386398044757425913"
       },
       {
         "file": "src/app/food/features/dish-details/dish-details.component.html",
-        "hash": "12212276316469880764"
+        "hash": "9683528850822225119"
       },
       {
         "file": "src/app/food/features/dish-details/dish-details.component.scss",
@@ -177,11 +177,11 @@
       },
       {
         "file": "src/app/food/features/dish-details/dish-details.component.ts",
-        "hash": "7613708232888940726"
+        "hash": "17060130623220991857"
       },
       {
         "file": "src/app/food/features/dishes-list/dishes-list.component.html",
-        "hash": "7909916689044445519"
+        "hash": "3352743583237832678"
       },
       {
         "file": "src/app/food/features/dishes-list/dishes-list.component.scss",
@@ -193,27 +193,27 @@
       },
       {
         "file": "src/app/food/features/dishes-list/dishes-list.component.ts",
-        "hash": "5940643583415920887"
+        "hash": "9533363143460227835"
       },
       {
-        "file": "src/app/food/features/food-main/food-main.component.html",
-        "hash": "11143029242406330791"
+        "file": "src/app/food/features/food-home/food-home.component.html",
+        "hash": "3086681670088465502"
       },
       {
-        "file": "src/app/food/features/food-main/food-main.component.scss",
-        "hash": "164736204790913239"
+        "file": "src/app/food/features/food-home/food-home.component.scss",
+        "hash": "5227808867395785167"
       },
       {
-        "file": "src/app/food/features/food-main/food-main.component.spec.ts",
-        "hash": "18277993432498158269"
+        "file": "src/app/food/features/food-home/food-home.component.spec.ts",
+        "hash": "11042322095598136956"
       },
       {
-        "file": "src/app/food/features/food-main/food-main.component.ts",
-        "hash": "15025650237339060411"
+        "file": "src/app/food/features/food-home/food-home.component.ts",
+        "hash": "2794482012805057882"
       },
       {
         "file": "src/app/food/features/ingredient-details/ingredient-details.component.html",
-        "hash": "5042389888164066173"
+        "hash": "17218757744745677132"
       },
       {
         "file": "src/app/food/features/ingredient-details/ingredient-details.component.scss",
@@ -225,11 +225,11 @@
       },
       {
         "file": "src/app/food/features/ingredient-details/ingredient-details.component.ts",
-        "hash": "8234610182167661249"
+        "hash": "16664191576827377673"
       },
       {
         "file": "src/app/food/features/ingredients-list/ingredients-list.component.html",
-        "hash": "16328781718943011048"
+        "hash": "8929400186170946755"
       },
       {
         "file": "src/app/food/features/ingredients-list/ingredients-list.component.scss",
@@ -241,15 +241,15 @@
       },
       {
         "file": "src/app/food/features/ingredients-list/ingredients-list.component.ts",
-        "hash": "14329060103018947003"
+        "hash": "2760706876145663073"
       },
       {
         "file": "src/app/food/features/shell/shell.module.ts",
-        "hash": "14487079618641665166"
+        "hash": "12202710090826156652"
       },
       {
         "file": "src/app/food/ui/food-card/food-card.component.html",
-        "hash": "15007798806258119054"
+        "hash": "2334180048515950797"
       },
       {
         "file": "src/app/food/ui/food-card/food-card.component.scss",
@@ -261,7 +261,7 @@
       },
       {
         "file": "src/app/food/ui/food-card/food-card.component.ts",
-        "hash": "9643363240780176117"
+        "hash": "15512867018616588625"
       },
       {
         "file": "src/app/food/utils/extract-youtube-id.pipe.spec.ts",
@@ -297,7 +297,7 @@
       },
       {
         "file": "src/index.html",
-        "hash": "15849352546478000011"
+        "hash": "6292100639938092505"
       },
       {
         "file": "src/main.server.ts",
@@ -309,7 +309,7 @@
       },
       {
         "file": "src/styles.scss",
-        "hash": "12232142524088776760"
+        "hash": "6028804318444728046"
       },
       {
         "file": "tailwind.config.js",

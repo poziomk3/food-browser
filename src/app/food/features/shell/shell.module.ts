@@ -22,14 +22,14 @@ const router: Routes = [
           ),
       },
       {
-        path: 'dishes/:id/details',
+        path: 'dishes/details/:id',
         loadComponent: () =>
           import('../dish-details/dish-details.component').then(
             m => m.DishDetailsComponent
           ),
       },
       {
-        path: 'ingredients/:id/details',
+        path: 'ingredients/details/:id',
         loadComponent: () =>
           import('../ingredient-details/ingredient-details.component').then(
             m => m.IngredientDetailsComponent

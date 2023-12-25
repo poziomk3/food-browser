@@ -42,6 +42,6 @@ export class IngredientsListComponent implements OnInit {
     this.currentPage$.next($event.pageIndex);
   }
   navigateToDestination(arg:number) {
-    this.router.navigate(['food','ingredients',arg,'details']);
+    this.router.navigate(['food','ingredients','details',arg]);
   }
 }

@@ -45,6 +45,6 @@ export class IngredientDetailsComponent implements OnInit, OnDestroy {
     this.id$?.unsubscribe();
   }
   navigateToDestination(arg: string) {
-    this.router.navigate(['food', 'dishes', arg, 'details']);
+    this.router.navigate(['food', 'dishes', 'details',arg]);
   }
 }
