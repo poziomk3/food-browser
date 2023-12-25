@@ -3,7 +3,7 @@
 
   <mat-tab-group
     [selectedIndex]="paramsMap.get('page')?.value"
-    (selectedIndexChange)="paramsMap.get('page')?.setValue($event)"
+    (selectedIndexChange)="paramsMap.get('page')!.setValue($event)"
     mat-stretch-tabs="true"
     animationDuration="0ms"
     mat-align-tabs="start">

@@ -1,4 +1,9 @@
-import { Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   MealNoDetails as DishNoDetails,
@@ -15,6 +20,7 @@ import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
   selector: 'app-dishes-list',
   standalone: true,
   imports: [AsyncPipe, MaterialModule, FoodCardComponent, RouterModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './dishes-list.component.html',
   styleUrl: './dishes-list.component.scss',
 })
@@ -26,23 +32,33 @@ export class DishesListComponent extends PageInUrlComponent implements OnInit {
   currentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   itemsOnPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   allIngredientsLength$: Observable<number> | null = null;
+
   override ngOnInit(): void {
+    this.addQueryParam('page', '0');
+    this.addQueryParam('pageSize', '5');
     super.ngOnInit();
+
     this.itemsOnPage$ = this.dishesService.getNumberOnPage();
     this.allDishes$ = this.dishesService.getPage(this.currentPage$);
     this.allIngredientsLength$ = this.dishesService.getFullLength();
-    console.log(this.paramsMap.get('page')?.value)
-    if (this.paramsMap.get('page')?.value != null)
-      this.currentPage$.next(this.paramsMap.get('page')?.value);
+
+    if (this.paramsMap.get('pageSize')?.value > 0) {
+      const val = 1 * this.paramsMap.get('pageSize')?.value;
+      this.dishesService.setNumberOnPage(val);
+    }
+    if (this.paramsMap.get('page')?.value > 0) {
+      const val = 1 * this.paramsMap.get('page')?.value;
+      this.currentPage$.next(val);
+    }
   }
 
   handlePageEvent($event: PageEvent) {
-    if ($event.pageSize != this.itemsOnPage$.value) {
+    if ($event.pageSize !== this.itemsOnPage$.value) {
       this.dishesService.setNumberOnPage($event.pageSize);
     }
     this.currentPage$.next($event.pageIndex);
+    this.paramsMap.get('pageSize')?.setValue($event.pageSize);
     this.paramsMap.get('page')?.setValue($event.pageIndex);
-    
   }
   navigateToDestination(arg: string) {
     this.router.navigate(['food', 'dishes', 'details', arg], {

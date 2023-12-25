@@ -35,10 +35,7 @@ import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DishDetailsComponent
-  extends PageInUrlComponent
-  implements OnInit
-{
+export class DishDetailsComponent extends PageInUrlComponent implements OnInit {
   dishesService = inject(DishesService);
   ingredientService = inject(IngredientService);
   dishDetails$: Observable<MealWithDetails> | null = null;

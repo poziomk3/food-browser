@@ -23,30 +23,47 @@ export class PageInUrlComponent implements OnInit, OnDestroy {
   paramsMap: Map<string, FormControl> = new Map<string, FormControl>();
   subscriptions: Subscription[] = [];
   ngOnInit(): void {
-    if (this.paramsMap.size == 0)
-      this.paramsMap.set('page', new FormControl(0));
-
-    this.paramsMap.forEach((value, key, map) => {
-      // You can mutate the value here
-      map.set(key, this.route.snapshot.queryParams[key]);
-      this.subscriptions.push(
-        value.valueChanges.subscribe(newValue => {
-          if (newValue != null) this.setRouteParams(newValue);
-        })
-      );
-    });
+    this.addQueryParam('page');
   }
+
   ngOnDestroy(): void {
-    this.sub?.unsubscribe();
+    for (const sub of this.subscriptions) {
+      sub.unsubscribe();
+    }
   }
-  sub: Subscription | null = null;
 
-  setRouteParams(arg: number) {
+  setRouteParams(params: { [key: string]: unknown }) {
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { ...this.route.snapshot.queryParams, page: arg },
-      queryParamsHandling: 'merge', // Keep existing query parameters
-      replaceUrl: true, // Replace the current URL without adding a new entry to the browser history
+      queryParams: {
+        ...this.route.snapshot.queryParams,
+        ...params,
+      },
+      queryParamsHandling: 'merge',
+      replaceUrl: true,
     });
+  }
+
+  // Function to add a new query parameter with an optional default value
+  addQueryParam(param: string, defaultValue: string | null = null) {
+    if (!this.paramsMap.has(param)) {
+      const control = new FormControl(defaultValue);
+      this.paramsMap.set(param, control);
+      this.subscriptions.push(
+        control.valueChanges.subscribe(value => {
+          const obj: { [key: string]: string } = {};
+          this.paramsMap.forEach((value, key) => {
+            obj[key] = value.value;
+          });
+          if (value != null) obj[param] = value;
+          this.setRouteParams(obj);
+        })
+      );
+      // Update the value when a new control is added
+      const snapshotValue = this.route.snapshot.queryParams[param];
+      if (control && snapshotValue !== undefined) {
+        control.setValue(snapshotValue);
+      }
+    }
   }
 }

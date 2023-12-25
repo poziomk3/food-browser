@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   IngredientService,
@@ -8,7 +13,8 @@ import { AsyncPipe } from '@angular/common';
 import { MaterialModule } from '../../../shared/material/material.service';
 import { PageEvent } from '@angular/material/paginator';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
 @Component({
   selector: 'app-ingredients-list',
   standalone: true,
@@ -17,7 +23,10 @@ import { Router, RouterModule } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe, MaterialModule, FoodCardComponent, RouterModule],
 })
-export class IngredientsListComponent implements OnInit {
+export class IngredientsListComponent
+  extends PageInUrlComponent
+  implements OnInit
+{
   pageSizeOptions = [1, 3, 5, 10, 30, 50, 70];
 
   allIngredients: Observable<Array<Product>> | null = null;
@@ -26,22 +35,35 @@ export class IngredientsListComponent implements OnInit {
   allIngredientsLength$: Observable<number> | null = null;
 
   ingredientsService = inject(IngredientService);
-  router=inject(Router);
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
+    this.addQueryParam('page', '0');
+    this.addQueryParam('pageSize', '5');
+    super.ngOnInit();
+
     this.itemsOnPage$ = this.ingredientsService.getNumberOnPage();
     this.allIngredients = this.ingredientsService.getPage(this.currentPage$);
     this.allIngredientsLength$ = this.ingredientsService.getFullLength();
+    if (this.paramsMap.get('pageSize')?.value > 0) {
+      const val = 1 * this.paramsMap.get('pageSize')?.value;
+      this.ingredientsService.setNumberOnPage(val);
+    }
+    if (this.paramsMap.get('page')?.value > 0) {
+      const val = 1 * this.paramsMap.get('page')?.value;
+      this.currentPage$.next(val);
+    }
   }
-
 
   handlePageEvent($event: PageEvent) {
     if ($event.pageSize != this.itemsOnPage$.value) {
       this.ingredientsService.setNumberOnPage($event.pageSize);
     }
     this.currentPage$.next($event.pageIndex);
+    this.paramsMap.get('pageSize')?.setValue($event.pageSize);
+    this.paramsMap.get('page')?.setValue($event.pageIndex);
   }
-  navigateToDestination(arg:number) {
-    this.router.navigate(['food','ingredients','details',arg]);
+
+  navigateToDestination(arg: number) {
+    this.router.navigate(['food', 'ingredients', 'details', arg]);
   }
 }
