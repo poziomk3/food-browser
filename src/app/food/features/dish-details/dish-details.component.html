@@ -2,6 +2,8 @@
   @if (dishDetails$ | async; as dish) {
 
   <mat-tab-group
+    [selectedIndex]="selected.value"
+    (selectedIndexChange)="selected.setValue($event)"
     mat-stretch-tabs="true"
     animationDuration="0ms"
     mat-align-tabs="start">

@@ -2,19 +2,10 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  OnDestroy,
   OnInit,
   inject,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import {
-  Observable,
-  Subscription,
-  combineLatest,
-  map,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { Observable, combineLatest, map, switchMap, tap } from 'rxjs';
 import {
   DishesService,
   MealWithDetails,
@@ -26,6 +17,7 @@ import { ExtractYoutubeIdPipe } from '../../utils/extract-youtube-id.pipe';
 import { IngredientService } from '../../data-access/ingredient.service';
 import { Product } from '../../data-access/ingredient.service';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
+import { FoodDetailsComponent } from '../food-details/food-details.component';
 
 @Component({
   selector: 'app-dish-details',
@@ -43,24 +35,22 @@ import { FoodCardComponent } from '../../ui/food-card/food-card.component';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DishDetailsComponent implements OnInit, OnDestroy {
-  route = inject(ActivatedRoute);
-  router = inject(Router);
+export class DishDetailsComponent
+  extends FoodDetailsComponent
+  implements OnInit
+{
   dishesService = inject(DishesService);
   ingredientService = inject(IngredientService);
-
-  id?: Subscription | null = null;
   dishDetails$: Observable<MealWithDetails> | null = null;
   ingredients$: Observable<Array<[Product, string]>> | null = null;
 
-  ngOnInit(): void {
-    this.id = this.route.params
-      .pipe(map(params => params['id']))
-      .subscribe(id => {
-        this.dishDetails$ = this.dishesService
-          .getDishDetails(id)
-          .pipe(tap(data => console.log(data)));
-      });
+  override ngOnInit(): void {
+    super.ngOnInit();
+    const { id } = this.route.snapshot.params;
+
+    this.dishDetails$ = this.dishesService
+      .getDishDetails(id)
+      .pipe(tap(data => console.log(data)));
     this.ingredients$ = this.prepareIngredients();
   }
 
@@ -86,10 +76,6 @@ export class DishDetailsComponent implements OnInit, OnDestroy {
         })
       );
     return null;
-  }
-
-  ngOnDestroy(): void {
-    this.id?.unsubscribe();
   }
 
   navigateToDestination(arg: number) {

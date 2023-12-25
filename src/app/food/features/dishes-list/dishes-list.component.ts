@@ -39,6 +39,8 @@ export class DishesListComponent implements OnInit {
     this.currentPage$.next($event.pageIndex);
   }
   navigateToDestination(arg: string) {
-    this.router.navigate(['food', 'dishes',  'details',arg]);
+    this.router.navigate(['food', 'dishes', 'details', arg], {
+      queryParams: { page: 0 },
+    });
   }
 }
