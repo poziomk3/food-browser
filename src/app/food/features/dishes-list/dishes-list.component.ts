@@ -5,16 +5,14 @@ import {
   inject,
 } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {
-  MealNoDetails as DishNoDetails,
-  DishesService,
-} from '../../data-access/dishes.service';
+import { DishesService } from '../../data-access/dishes.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MaterialModule } from '../../../shared/material/material.service';
 import { AsyncPipe } from '@angular/common';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
 import { RouterModule } from '@angular/router';
 import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
+import { MealNoDetails } from '../../models/Dish';
 
 @Component({
   selector: 'app-dishes-list',
@@ -28,7 +26,7 @@ export class DishesListComponent extends PageInUrlComponent implements OnInit {
   dishesService = inject(DishesService);
 
   pageSizeOptions = [1, 3, 5, 10, 30, 50, 70];
-  allDishes$: Observable<Array<DishNoDetails>> | null = null;
+  allDishes$: Observable<Array<MealNoDetails>> | null = null;
   currentPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   itemsOnPage$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   allIngredientsLength$: Observable<number> | null = null;

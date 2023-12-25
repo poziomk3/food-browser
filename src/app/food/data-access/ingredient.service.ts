@@ -3,15 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DatapaginationService } from './datapagination.service';
-export interface Product {
-  idIngredient: number;
-  strIngredient: string;
-  strDescription: string | null;
-  strType: string | null;
-}
-export interface IngredientsDTO {
-  meals: Array<Product>;
-}
+import { IngredientsDTO, Product } from '../models/Ingredient';
+
 
 @Injectable({
   providedIn: 'root',
@@ -86,3 +79,4 @@ export class IngredientService {
     return this.paginator.getNumberOnPage();
   }
 }
+

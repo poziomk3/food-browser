@@ -5,16 +5,15 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import {
-  IngredientService,
-  Product,
-} from '../../data-access/ingredient.service';
+import { IngredientService } from '../../data-access/ingredient.service';
 import { Observable, map, tap } from 'rxjs';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { MaterialModule } from '../../../shared/material/material.service';
-import { DishesService, MealNoDetails } from '../../data-access/dishes.service';
+import { DishesService } from '../../data-access/dishes.service';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
 import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
+import { Product } from '../../models/Ingredient';
+import { MealNoDetails } from '../../models/Dish';
 
 @Component({
   selector: 'app-ingredient-details',

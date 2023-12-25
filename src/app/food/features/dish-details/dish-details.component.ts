@@ -8,16 +8,16 @@ import {
 import { Observable, combineLatest, map, switchMap, tap } from 'rxjs';
 import {
   DishesService,
-  MealWithDetails,
 } from '../../data-access/dishes.service';
 import { MaterialModule } from '../../../shared/material/material.service';
 import { SeparatePipe } from '../../utils/separate.pipe';
 import { YouTubePlayerModule } from '@angular/youtube-player';
 import { ExtractYoutubeIdPipe } from '../../utils/extract-youtube-id.pipe';
 import { IngredientService } from '../../data-access/ingredient.service';
-import { Product } from '../../data-access/ingredient.service';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
 import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
+import { Product } from '../../models/Ingredient';
+import { MealWithDetails } from '../../models/Dish';
 
 @Component({
   selector: 'app-dish-details',
@@ -35,7 +35,10 @@ import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DishDetailsComponent extends PageInUrlComponent implements OnInit {
+export class DishDetailsComponent
+  extends PageInUrlComponent
+  implements OnInit
+{
   dishesService = inject(DishesService);
   ingredientService = inject(IngredientService);
   dishDetails$: Observable<MealWithDetails> | null = null;

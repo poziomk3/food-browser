@@ -7,7 +7,6 @@ import {
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
   IngredientService,
-  Product,
 } from '../../data-access/ingredient.service';
 import { AsyncPipe } from '@angular/common';
 import { MaterialModule } from '../../../shared/material/material.service';
@@ -15,6 +14,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { FoodCardComponent } from '../../ui/food-card/food-card.component';
 import { RouterModule } from '@angular/router';
 import { PageInUrlComponent } from '../page-in-url/page-in-url.component';
+import { Product } from '../../models/Ingredient';
 @Component({
   selector: 'app-ingredients-list',
   standalone: true,
