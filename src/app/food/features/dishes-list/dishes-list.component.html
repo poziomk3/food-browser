@@ -1,15 +1,97 @@
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Filter your search!
+      </mat-panel-title>
+
+    </mat-expansion-panel-header>
+    <div class="mx-auto flex justify-center flex-col items-center min-h-[5rem]">
+      <mat-chip-set>
+        @for (vegetable of activeCategories.value; track vegetable) {
+        <mat-chip class="example-box" removable="true"
+          (removed)="removeCat(vegetable)">{{vegetable}} <button
+            matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button></mat-chip>
+
+        }
+      </mat-chip-set>
+
+      <mat-chip-set>
+        @for (vegetable of activeAreas.value; track vegetable) {
+        <mat-chip class="example-box" color="primary" removable="true"
+          (removed)="removeArea(vegetable)">{{vegetable}}<button
+            matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button></mat-chip>
+
+        }
+      </mat-chip-set>
+    </div>
+
+    <div class="flex justify-center mx-auto gap-[1rem]">
+      @if (categories$|async) {
+      <mat-form-field>
+        <mat-label>Categories</mat-label>
+        <mat-select [formControl]="activeCategories" multiple>
+          <mat-select-trigger>
+            {{activeCategories.value?.[0]}}
+            @if ((activeCategories.value?.length || 0) > 1) {
+            <span class="example-additional-selection">
+              (+{{(activeCategories.value?.length || 0) - 1}}
+              {{activeCategories.value?.length === 2 ? 'other' : 'others'}})
+            </span>
+            }
+          </mat-select-trigger>
+          @for (category of categories$|async; track category.strCategory) {
+          <mat-option [value]="category.strCategory">{{category.strCategory}}</mat-option>
+
+          }
+        </mat-select>
+      </mat-form-field>
+
+      }
+
+      @if (areas$|async) {
+      <mat-form-field>
+        <mat-label>Areas</mat-label>
+        <mat-select [formControl]="activeAreas" multiple>
+          <mat-select-trigger>
+            {{activeAreas.value?.[0]}}
+            @if ((activeAreas.value?.length || 0) > 1) {
+            <span class="example-additional-selection">
+              (+{{(activeAreas.value?.length || 0) - 1}}
+              {{activeAreas.value?.length
+              === 2 ? 'other' : 'others'}})
+            </span>
+            }
+          </mat-select-trigger>
+          @for (area of areas$|async; track area.strArea) {
+          <mat-option [value]="area.strArea">{{area.strArea}}</mat-option>
+
+          }
+        </mat-select>
+      </mat-form-field>
+
+      }
+    </div>
+
+    <div class="flex justify-center"> <button
+        mat-raised-button>Filter</button></div>
+  </mat-expansion-panel>
+</mat-accordion>
 <div
   class="relative mx-auto grid max-w-[1200px] gap-5 p-[1rem] md:grid-cols-2 xl:grid-cols-3  ">
-  @if(allDishes$ | async; )
 
-  {
+  
 
   @for (dish of allDishes$|async; track dish.idMeal) {
   <app-food-card [subtitle]="dish.strMeal" [imgSrc]="dish.strMealThumb"
     (Clicked)="navigateToDestination(dish.idMeal)">
-   
+
   </app-food-card>
-  } @empty {}}
+  } @empty {}
 </div>
 <div class="flex items-end justify-center">
   <mat-paginator
